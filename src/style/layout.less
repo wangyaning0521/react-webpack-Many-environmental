@@ -1,0 +1,131 @@
+
+.layoutWidth (@max: 100%) {
+    width:@max;
+    height: @max;
+}
+
+.ant-layout{
+    .layoutWidth(100%);
+    &-content{
+        .layoutWidth(100%)
+    }
+    &-header{
+        background: #fff;
+        padding: 0 20px;
+        &-title{
+            height: 100%;
+            &-menu{
+                padding:20px;
+                margin-left: 40px;
+            }
+
+        }
+        
+    }
+    &-sider{
+        height: 100%;
+        overflow-y: scroll;
+    }
+    .logo{
+        height: 32px;
+        background: url('../assets/home/react.jpg') no-repeat;
+        background-size:100% 100%; 
+        margin: 16px;
+
+    }
+    .main-content{
+        padding:10px;
+    }
+    .tag-nav{
+        padding: 0;
+        height: 40px;
+        background: #f0f0f0;
+        &-wrapper{
+            position: relative;
+            .layoutWidth(100%);
+            &-item{
+                position: absolute;
+                
+            }
+            .left-btn,.right-btn{
+                width:28px;
+                height: 38px;
+                text-align: center;
+                line-height: 38px;
+                background: #fff;
+                z-index: 10;
+                cursor: pointer;
+            }
+            .left-btn,.right-btn,.close-btn{
+                transition: color 1s;
+            }
+            .left-btn:hover,.right-btn:hover,.close-btn:hover{
+                color: #00b0b0;
+            }
+            .left-btn{
+                top:0;
+                left: 0;
+            }
+            .right-btn{
+                top:0;
+                right: 32px;
+                border-right: 1px solid #f0f0f0;
+            }
+            .close-btn{
+                top:0;
+                right:0;
+                text-align: center;
+                line-height: 38px;
+                background: #fff;
+                width:32px;
+            }
+
+            .tag{
+                position: absolute;
+                left: 28px;
+                right: 61px;
+                top: 0;
+                bottom: 0;
+                -webkit-box-shadow: 0 0 3px 2px hsla(0,0%,39.2%,.1) inset;
+                box-shadow: inset 0 0 3px 2px hsla(0,0%,39.2%,.1);
+                overflow: hidden;
+                &-main{
+                    height: calc(100% - 1px);
+                    display: inline-block;
+                    padding: 1px 4px 0;
+                    position: absolute;
+                    overflow: visible;
+                    white-space: nowrap;
+                    -webkit-transition: left .3s ease;
+                    transition: left .3s ease;
+                    .ant-tag{
+                        cursor: pointer;
+                        height: 32px;
+                        line-height: 32px;
+                        border: 1px solid #e8eaec!important;
+                        color: #515a6e!important;
+                        background: #fff!important;
+                        padding: 0 12px 0 30px;
+                        margin-top: 4px;
+                        position: relative;
+                    }
+                    .ant-tag::after{
+                        content:'';
+                        position: absolute;
+                        background: #e8eaec;
+                        display: block;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        left:10px;
+                        top:10px;
+                    }
+                    .checkedTag .ant-tag::after{
+                        background: #2d8cf0!important;
+                    }
+                }
+            }
+        }
+
+    }
+}
