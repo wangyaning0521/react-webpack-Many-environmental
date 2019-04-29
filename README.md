@@ -41,14 +41,18 @@ webpack.prod
 ### 打包生产环境使用的代码需要非常多的优化和处理，所以这个文件的配置会非常复杂。
 
 ```
-    配置思路
+配置思路
 
     将css样式从main.js内抽离到单独的.css文件
     缓存处理
+
     将第三方库和webpack的runtime从main.js内抽离出来
     js、css、html代码压缩
+
     使用source-map替代inline-source-map
+
     懒加载（lazy loading）
+    
     每次打包前先清空dist目录
 
 ```
