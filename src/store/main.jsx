@@ -8,10 +8,10 @@ import { fromJS }                                   from 'immutable'
 import { defaultNavList , defaultNavValue }         from 'lib/util'
 
 const initialState = {
-    menuTopList :defaultNavList,
-    checkedTag  :defaultNavValue,
-    checkedNav  :defaultNavList,
-    collapsed   :false
+    menuTopList : defaultNavList,
+    checkedTag  : defaultNavValue,
+    checkedNav  : defaultNavList,
+    collapsed   : false
 }
 
 function mainAction(state = initialState, action) {
@@ -62,9 +62,9 @@ function mainAction(state = initialState, action) {
         case  'REMOVE_NAV' : 
             let 
                 menuTopList = state.menuTopList, 
-                actionNav = action.actionNav,
+                actionNav   = action.actionNav,
                 obj,
-                menuTopNew = defaultNavList
+                menuTopNew  = defaultNavList
             ;
             /** @params  [单个] */
             if( action.removeType  == 1 || action.removeType  == 2 ){
@@ -82,11 +82,17 @@ function mainAction(state = initialState, action) {
                     let checkActionNav = state.menuTopList.filter((item) => item.eventKey == state.checkedTag)
 
                     menuTopNew = [ ...menuTopNew, ...checkActionNav]
-                }
-                obj = {
-                    menuTopList : menuTopNew,
-                    checkedNav  : [menuTopNew[1]],
-                    checkedTag  : menuTopNew[1].eventKey
+                    obj = {
+                        menuTopList : menuTopNew,
+                        checkedNav  : [menuTopNew[1]],
+                        checkedTag  : menuTopNew[1].eventKey
+                    }
+                }else{
+                    obj = {
+                        menuTopList : defaultNavList,
+                        checkedNav  : defaultNavList,
+                        checkedTag  : defaultNavValue
+                    }
                 }
             }
             return fromJS( Object.assign(
