@@ -42,4 +42,17 @@ export const defaultNavList = [
     }
 ]
 
+export const formItemLayout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+}
+
 export const defaultNavValue = '55'
+
+export const isInput = ( type ) => type === 'input'
+
+export const isSelect = ( type ) => type === 'select'
+
+export const isCascader = ( type ) => type === 'cascader'
+
+export const isRangePicker = ( type ) => type === 'RangePicker'
