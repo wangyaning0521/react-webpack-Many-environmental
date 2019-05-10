@@ -1,8 +1,6 @@
 import React from 'react'
-import InputGroup from '&/input-group/'
 
-import { Form, Col, Row  } from 'antd'
-
+import TableGroup from '&/table-group/'
 
 const customData = [
     {
@@ -46,7 +44,6 @@ class companyCient extends React.Component{
                     name            : 'keyWord',
                     title           : '关键字',
                     type            : 'input',
-                    value           : '',
                     placeholder     : '账单号、联系人、联系电话'
                 },
                 {   
@@ -62,35 +59,62 @@ class companyCient extends React.Component{
                     data            : options , 
                     placeholder     : '请选择所在地',
                 },
+                {   
+                    name            : ['buildTimeBegin','buildTimeEnd'], 
+                    title           : '生成日' , 
+                    type            : 'RangePicker',  
+                    placeholder     : ['生成日开始','生成日结束'],
+                },
+                {   
+                    name            : 'search', 
+                    title           : '供应商' , 
+                    type            : 'search',  
+                    placeholder     : '请输入供应商检索',
+                    data            : [],
+                    searchUrl       : '/wf-base/api/supplierManager/supplierSearch/'
+                },
+                {   
+                    name            : ['inputStart','inputEnd'], 
+                    title           : '核销金额' , 
+                    type            : 'doubleInput',  
+                    placeholder     : ['开始','结束'],
+                },
+                {   
+                    name            : 'month', 
+                    title           : '月份' , 
+                    type            : 'month',  
+                    placeholder     : '请选择月份',
+                },
+                {
+                    name            : 'data', 
+                    title           : '截止日期' , 
+                    type            : 'DatePicker',  
+                    placeholder     : '请选择日期',
+                },
+                {
+                    name            : ['Startmonth', 'Endmonth'], 
+                    title           : '截止日期' , 
+                    type            : 'RangeMonth',  
+                    placeholder     : ['Start month', 'End month'],
+                }
             ]
         }
     }
 
-    inputChange(){
-
+    onSearch(){
+        
     }
 
     render(){
-        let { inputGroup } = this.state
+        let  { inputGroup } = this.state
         return(
             <div className='companyCient'>
-                <Form>
-                    <Row>
-                        <Col span={20}>
-                            <Row>
-                                {
-                                    inputGroup.map( (item, index) =>{
-                                        return (
-                                            <Col span={6} key={index}>
-                                                <InputGroup  ref={`${item.name}-input`} {...item} onChange={this.inputChange.bind(this)}/>
-                                            </Col>
-                                        )
-                                    })
-                                }
-                            </Row>
-                        </Col>
-                    </Row>
-                </Form>
+                <TableGroup 
+                    inputGroup  = {inputGroup}
+                    searchTitle = '搜索'
+                    clearTitle  = '清空'
+                    onSearch    = {this.onSearch.bind(this)}
+                />
             </div>
         )
     }

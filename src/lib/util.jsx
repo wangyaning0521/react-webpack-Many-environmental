@@ -1,3 +1,5 @@
+import { fromJS } from 'immutable'
+
 export const IconBar = [
     'area-chart',
     'pie-chart',
@@ -56,3 +58,21 @@ export const isSelect = ( type ) => type === 'select'
 export const isCascader = ( type ) => type === 'cascader'
 
 export const isRangePicker = ( type ) => type === 'RangePicker'
+
+export const isSearch = ( type ) => type === 'search'
+
+export const isdoubleInput = ( type ) => type === 'doubleInput'
+
+export const isMonth = ( type ) => type === 'month'
+
+export const isDatePicker = ( type ) => type === 'DatePicker'
+
+
+export const searchValue = ( sendMsg, val ) =>{
+    if(typeof val == 'object')
+        return Object.assign( sendMsg, val )
+    else 
+        delete sendMsg[val]
+
+    return sendMsg
+}
