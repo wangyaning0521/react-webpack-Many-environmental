@@ -1,6 +1,12 @@
 import React from 'react'
 
-import TableGroup from '&/table-group/'
+import SearchGroup from '&/search-group/'
+import TableHeader from '&/table-header/'
+import { Table }   from 'antd'
+import fetch       from 'Axios'
+
+import { searchValue } from 'lib/util'
+import { fromJS }          from 'immutable'
 
 const customData = [
     {
@@ -37,6 +43,9 @@ const options = [{
 class companyCient extends React.Component{
     constructor(props){
         super(props)
+
+        this.pages          = this.pages.bind(this)
+        this.pageSizeChange = this.pageSizeChange.bind(this)
 
         this.state = {
             inputGroup : [
@@ -97,23 +106,237 @@ class companyCient extends React.Component{
                     type            : 'RangeMonth',  
                     placeholder     : ['Start month', 'End month'],
                 }
-            ]
+            ],
+            HeaderData:[
+                {
+                    name   : '添加单位',
+                    action : 'addCompany'
+                },
+                {
+                    name   : '批量删除',
+                    action : 'batchRemove '
+                },
+            ],
+            dataSource:[],
+            columns:[
+                {
+                    title: '单位',
+                    dataIndex: 'companyName',
+                    key: 'companyName',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '所在地',
+                    dataIndex: 'region',
+                    key: 'region',
+                    align:'center',
+                    width: 130,
+                },
+                {
+                    title: '单位规模',
+                    dataIndex: 'scale',
+                    key: 'scale',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '所在行业',
+                    dataIndex: 'industry',
+                    key: 'industry',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '员工人数',
+                    dataIndex: 'employeeCount',
+                    key: 'employeeCount',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '会员等级',
+                    dataIndex: 'memberLevel',
+                    key: 'memberLevel',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '归属销售',
+                    dataIndex: 'saleName',
+                    key: 'saleName',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '前道客服',
+                    dataIndex: 'befName',
+                    key: 'befName',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '账户余额',
+                    dataIndex: 'cashAccount',
+                    key: 'cashAccount',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '创建时间',
+                    dataIndex: 'createTime',
+                    key: 'createTime',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '最近登录',
+                    dataIndex: 'lastLogin',
+                    key: 'lastLogin',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '状态',
+                    dataIndex: 'status',
+                    key: 'status',
+                    align:'center',
+                    width: 120,
+                },
+                {
+                    title: '操作',
+                    align:'center',
+                    width: 120,
+                },
+            ],
+            sendMsg:{},
+            page:{}
         }
     }
-
+    componentDidMount(){
+        this.onSearch()
+    }
     onSearch(){
         
+        let { sendMsg, page } = this.state,
+                    obj       = fromJS(
+                Object.assign( 
+                    sendMsg , 
+                    { 
+                        pageSize:page.pageSize ? page.pageSize : 10,
+                        pageNum :page.pageNum  ? page.pageNum  : 1,
+                    },
+                    this.sendMsg
+                )
+            ).toJS()
+        
+        fetch
+            .post('/wf-base/api/clientManager/companies', obj )
+            .then( (response) => {
+
+                let { code, result : dataSource , pageMessage } = response
+
+                if( code == 0 ) {
+
+                    var page = {
+                        ...pageMessage,
+                        current          : pageMessage.pageNum,
+                        showSizeChanger  : true,
+                        onChange         : this.pages,
+                        onShowSizeChange : this.pageSizeChange,
+                        showTotal        : (total, range) => `共 ${ total } 页数据`
+                    }
+
+                    this.setState({
+                        page,
+                        dataSource
+                    })
+                } 
+
+            })
+            .catch( (error) => {
+                console.log( error )
+            });
     }
 
+    onChange( val ){
+
+        let { sendMsg } = this.state 
+        
+        this.setState({
+            sendMsg : fromJS(searchValue( sendMsg, val )).toJS()
+        })
+
+    }
+
+    onClear() {
+        this.setState({
+            sendMsg : {}
+        })
+    }
+
+    pages( pageNum , pageSize ){
+        let { page } = this.state
+        this.setState({
+            page : {
+                ...page,
+                pageNum  : pageNum,
+                pageSize : pageSize
+            }
+        },()=> {
+            this.onSearch()
+        })
+    }
+
+    pageSizeChange( pageNum , pageSize ){
+        let { page } = this.state
+        this.setState({
+            page : {
+                ...page,
+                pageNum  : pageNum,
+                pageSize : pageSize
+            }
+        },()=> {
+            this.onSearch()
+        })
+    }
+
+    HeaderClick( action ){
+        if( action ) this[action]()
+    }
+
+    addCompany() {
+        console.log('添加单位')
+    }
+
+    batchRemove() {
+        console.log('批量删除')
+    }
+    
     render(){
-        let  { inputGroup } = this.state
+
+        let  { inputGroup, HeaderData, dataSource, columns, page } = this.state
+        
         return(
             <div className='companyCient'>
-                <TableGroup 
+                <SearchGroup 
                     inputGroup  = {inputGroup}
                     searchTitle = '搜索'
                     clearTitle  = '清空'
                     onSearch    = {this.onSearch.bind(this)}
+                    onChange    = {this.onChange.bind(this)}
+                    onClear     = {this.onClear.bind(this)}
+                />
+                <TableHeader
+                    HeaderData  = { HeaderData }
+                    HeaderClick = { this.HeaderClick.bind(this) }
+                />
+                <Table
+                    rowKey      = { record => record.id }
+                    columns     = { columns } 
+                    dataSource  = { dataSource }
+                    bordered    = { true }
+                    pagination  = { page }
                 />
             </div>
         )

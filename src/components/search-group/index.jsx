@@ -22,20 +22,16 @@ class tableGroup extends React.Component{
         
         this.setState(
             {
-                ...initialState,
-                sendMsg:{}
+                ...initialState
             }
         )
 
     }
 
     inputChange( val ){
+        console.log( val )
+        this.props.onChange( val )
 
-        let { sendMsg } = this.state
-
-        this.setState({
-            sendMsg : fromJS(searchValue( sendMsg, val )).toJS()
-        })
     }
 
     clearBtn(){
@@ -46,17 +42,14 @@ class tableGroup extends React.Component{
             this.refs[`${index}-input`].clearInput()
         })
 
-        this.setState({
-            sendMsg : {}
-        })
+        
+        this.props.onClear()
 
     }
 
     searchBtn(){
 
-        let  { sendMsg } = this.state
-        
-        this.props.onSearch( sendMsg )
+        this.props.onSearch()
 
     }
 
