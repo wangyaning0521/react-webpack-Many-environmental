@@ -6,7 +6,7 @@ class othernessHandle extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 标准差异处理
             </div>
         )

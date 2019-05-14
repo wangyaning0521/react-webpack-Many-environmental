@@ -7,7 +7,7 @@ class consumerCient extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 个人客户
             </div>
         )

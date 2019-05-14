@@ -6,7 +6,7 @@ class projectManagement extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 项目管理
             </div>
         )

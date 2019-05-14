@@ -6,7 +6,7 @@ class billManage extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 实做账单管理
             </div>
         )

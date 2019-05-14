@@ -5,6 +5,9 @@ import Layout                from '../layout/index.jsx'
 import { Provider }          from 'react-redux'; 
 import store                 from '../store/index.jsx'
 
+import AnimatedRouter from 'react-animated-router'; //导入我们的的AnimatedRouter组件
+import './router.less'
+
 import {
     BrowserRouter as Router,
     Route,
@@ -116,7 +119,8 @@ class LayoutRouter extends React.Component{
     render(){
         return(
             <Layout>
-                <Switch>
+                
+                <AnimatedRouter>  
                     <Route path='/' exact component={IndexPage}></Route>
                     {/* 客户档案管理 */}
                     <Route path='/companyCient' component={companyCientPage}></Route>
@@ -135,7 +139,7 @@ class LayoutRouter extends React.Component{
                     <Route path='/extraTrace' component={extraTracePage}></Route>
                     <Route path='/nonstandardHandle' component={nonstandardHandlePage}></Route>
                     <Route path='/othernessHandle' component={othernessHandlePage}></Route>
-                </Switch>
+                </AnimatedRouter>  
             </Layout>
         )
     }
@@ -148,7 +152,7 @@ class RouterComponent extends React.Component{
         return (
             <Router>
                 <Provider store={store}>
-                    <Switch>    
+                    <Switch>
                         <Route path='/login' component={LoginPage}></Route>
                         <Route path="/" render={ () => <LayoutRouter></LayoutRouter>} />
                     </Switch>

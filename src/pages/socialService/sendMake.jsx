@@ -6,7 +6,7 @@ class sendMake extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 派单交接
             </div>
         )

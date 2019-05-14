@@ -318,7 +318,7 @@ class companyCient extends React.Component{
         let  { inputGroup, HeaderData, dataSource, columns, page } = this.state
         
         return(
-            <div className='companyCient'>
+            <div className='companyCient container'>
                 <SearchGroup 
                     inputGroup  = {inputGroup}
                     searchTitle = '搜索'

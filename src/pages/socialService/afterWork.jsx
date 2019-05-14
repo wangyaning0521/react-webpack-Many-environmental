@@ -6,7 +6,7 @@ class afterWork extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 后道申报
             </div>
         )

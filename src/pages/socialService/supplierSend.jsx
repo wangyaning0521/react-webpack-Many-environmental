@@ -6,7 +6,7 @@ class supplierSend extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 供应商派单表
             </div>
         )

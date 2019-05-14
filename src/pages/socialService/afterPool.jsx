@@ -6,7 +6,7 @@ class afterPool extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 后道大库
             </div>
         )

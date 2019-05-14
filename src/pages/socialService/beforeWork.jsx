@@ -6,7 +6,7 @@ class beforeWork extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 前道申报
             </div>
         )

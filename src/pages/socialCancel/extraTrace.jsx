@@ -6,7 +6,7 @@ class extraTrace extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 超期追踪
             </div>
         )
