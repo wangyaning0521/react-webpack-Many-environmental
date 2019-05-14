@@ -114,7 +114,7 @@ class companyCient extends React.Component{
                 },
                 {
                     name   : '批量删除',
-                    action : 'batchRemove '
+                    action : 'batchRemove'
                 },
             ],
             dataSource:[],
